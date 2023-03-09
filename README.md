@@ -21,9 +21,34 @@
     php artisan migrate
    
 7- run seeder files for creating fake data in database tables
-   
-    php artisan db:seed --class=AdminSeeder  // for admins Table
-    php artisan db:seed --class=UserSeeder   // for users Table
-    php artisan db:seed --class=JobSeeder   // for jobs Table
-    php artisan db:seed --class=JobQuestionSeeder  // for job_questions Table
-    php artisan db:seed --class=JobUserSeeder      // for job_user Table
+
+**For admins Table**
+
+    php artisan db:seed --class=AdminSeeder  
+    
+**For users Table**
+
+    php artisan db:seed --class=UserSeeder  
+    
+**For jobs Table**
+
+    php artisan db:seed --class=JobSeeder   
+    
+**For job_questions Table**
+
+    php artisan db:seed --class=JobQuestionSeeder  
+    
+**For job_user Table**
+
+    php artisan db:seed --class=JobUserSeeder     
+
+***Warning***
+
+**you can't use jobSeeder before using AdminSeeder if admins table is Empty**
+    
+**you can't use job_questionSeeder before using JobSeeder if jobs table is Empty**
+
+**you can't use JobUserSeeder before using job_questionSeeder & UserSeeder   if users table and job_questions are Empty**
+    
+    
+    
