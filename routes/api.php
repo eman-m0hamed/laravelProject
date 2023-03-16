@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\JobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// job routes
+Route::get('jobs',[JobController::class, 'index']);
+Route::get('jobs/{job}',[JobController::class, 'show']);
+Route::post('jobs/store',[JobController::class, 'store']);
+Route::put('jobs/update/{job}',[JobController::class, 'update']);
+Route::delete('jobs/delete/{job}',[JobController::class, 'destroy']);
