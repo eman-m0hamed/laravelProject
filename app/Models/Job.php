@@ -15,6 +15,7 @@ class Job extends Model
         'state',
         'open_date',
         'close_date',
+        'admin_id'
     ];
 
     public function Admin(){
