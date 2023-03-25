@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\JobQuestionController;
+use App\Http\Controllers\API\JobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user/{id}', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('jobQuestions',JobQuestionController::class);
+
+// Route::get('JobQuestions','JobQuestionController@show');
+
+// Route::get('/api/data', 'JobQuestionController@getJobQuestion');
+// Route::get('/jobQuestions/{id}', [JobQuestionController::class,'getJobQuestions']);
+Route::resource('allJobs',JobController::class);

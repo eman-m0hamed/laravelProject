@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\API;
+use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Http\Request;
+
 
 class JobController extends Controller
 {
@@ -12,7 +13,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $allJobs = Job::all();
+        return $allJobs;
+
     }
 
     /**

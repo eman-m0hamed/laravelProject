@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\API;
+use App\Http\Controllers\Controller;
 use App\Models\JobQuestion;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,14 @@ class JobQuestionController extends Controller
      */
     public function index()
     {
-        //
+        // $value = $request->input('value');
+        //  $SinglejobQustions=JobQuestion::where( "job_id",$value)->get();
+        //  return response()->json($SinglejobQustions);
+         //
+
+         $allJobQuestions = JobQuestion::with('job')->get();
+         return $allJobQuestions;
+
     }
 
     /**
@@ -34,9 +41,17 @@ class JobQuestionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(JobQuestion $jobQuestion)
+    public function show( $JobQuestion)
     {
-        //
+            $SinglejobQustions = JobQuestion::where('job_id', $JobQuestion)-> get()->groupBy(
+                function ($data){
+
+                    return $data->job->title;
+                }
+            );
+
+        return response()->json($SinglejobQustions);
+
     }
 
     /**
@@ -62,4 +77,7 @@ class JobQuestionController extends Controller
     {
         //
     }
+
+
+
 }
