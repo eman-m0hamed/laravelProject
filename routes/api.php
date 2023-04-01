@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\AdminController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +19,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//                   Users
+Route::get('/users', [UserController::class, 'index']);
+Route::post('/showUser/{user}', [UserController::class, 'show']);
+Route::delete('deletedUser/{user}', [UserController::class, 'destroy']);
+Route::post('/storeUser', [UserController::class, 'store']);
+Route::put('/updateUser/{user}', [UserController::class, 'update']);
+Route::post('searchJob', [UserController::class, 'searchJob']);
+
+//                    Admin
+
+Route::get('/candidatesCount', [AdminController::class, 'candidateCount']);
+Route::get('/jobCount', [AdminController::class, 'jobCount']);
