@@ -10,6 +10,7 @@ class JobQuestion extends Model
     use HasFactory;
 
     protected $fillable = [
+        'job_id',
         'question',
         'option1',
         'option2',

@@ -36,6 +36,25 @@ class JobQuestionController extends Controller
     public function store(Request $request)
     {
         //
+        // $jobQuestion->
+        $jobQuestion= new JobQuestion();
+        $jobQuestion->job_id= $request->formJob;
+        $jobQuestion->question= $request->question;
+        $jobQuestion->option1= $request->answer1;
+        $jobQuestion->option2= $request->answer2;
+        $jobQuestion->option3= $request->answer3;
+        $jobQuestion->option4= $request->answer4;
+        $jobQuestion->right_option= $request->rightAnswer;
+
+        $result=$jobQuestion->save();
+
+        if($result){
+            return["result"=>"it success"];
+        }else{
+            return["result"=>"it failed"];
+
+        }
+
     }
 
     /**
@@ -59,23 +78,56 @@ class JobQuestionController extends Controller
      */
     public function edit(JobQuestion $jobQuestion)
     {
+
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JobQuestion $jobQuestion)
+    public function update(Request $request,  $id)
     {
         //
+        $jobQuestion=JobQuestion::find($id);
+        $jobQuestion->question= $request->question;
+        $jobQuestion->option1= $request->answer1;
+        $jobQuestion->option2= $request->answer2;
+        $jobQuestion->option3= $request->answer3;
+        $jobQuestion->option4= $request->answer4;
+        $jobQuestion->right_option= $request->rightAnswer;
+
+        $result=$jobQuestion->save();
+
+        if($result){
+            return["result"=>"update success"];
+        }else{
+            return["result"=>"update failed"];
+
+        }
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobQuestion $jobQuestion)
+    public function destroy($id)
     {
         //
+        $jobQuestion=JobQuestion::find($id);
+
+        $result=$jobQuestion->delete();
+
+        if($result){
+            return["result"=>"delete success"];
+        }else{
+            return["result"=>"delete failed"];
+
+        }
+
+
+
+
     }
 
 

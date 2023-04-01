@@ -26,4 +26,10 @@ Route::resource('jobQuestions',JobQuestionController::class);
 
 // Route::get('/api/data', 'JobQuestionController@getJobQuestion');
 // Route::get('/jobQuestions/{id}', [JobQuestionController::class,'getJobQuestions']);
+Route::post('jobQuestions/addJobQuestion',[JobQuestionController::class,'store']);
+Route::put('jobQuestions/updateJobQuestion/{id}',[JobQuestionController::class,'update']);
+Route::delete('jobQuestions/deleteJobQuestion/{id}',[JobQuestionController::class,'destroy']);
 Route::resource('allJobs',JobController::class);
+Route::post('user/jobExam',[JobController::class,"addResults"]);
+
+// the final route
