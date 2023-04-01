@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Admin;
+use App\Models\Job;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,8 +16,17 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return "saas";
-        //
+    }
+    public function candidateCount()
+    {
+
+        $candidatesCount = User::get()->count();
+        return response()->json(['count' => $candidatesCount]);
+    }
+    public function jobCount()
+    {
+        $jobsCount = Job::get()->count();
+        return response()->json(['jobsCount' => $jobsCount]);
     }
 
     /**

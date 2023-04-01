@@ -89,6 +89,7 @@ class JobQuestionController extends Controller
     {
         //
         $jobQuestion=JobQuestion::find($id);
+        // dd($jobQuestion);
         $jobQuestion->question= $request->question;
         $jobQuestion->option1= $request->answer1;
         $jobQuestion->option2= $request->answer2;

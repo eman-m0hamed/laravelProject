@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\User;
+use Error;
 use Illuminate\Http\Request;
 
 
@@ -87,22 +88,37 @@ class JobController extends Controller
                     $answerCount++;
                 }
 
-                if($question['right_option']==$answer){
+                if($question['right_option']??null==$answer){
                     $rightAnswerCount ++;
                 }
 
             }
 
-            $user = User::find($userId);
-            $job = Job::find($jobId);
-            $job->users()->attach($user->id, [
-                'answer_count' => $answerCount,
-                'rightAnswer_count' => $rightAnswerCount,
-                'status' => 'pending',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-            return response()->json($user);
+
+
+            try{
+                $user = User::find($userId);
+                $job = Job::find($jobId);
+               $result= $job->users()->attach($user->id, [
+                    'answer_count' => $answerCount,
+                    'rightAnswer_count' => $rightAnswerCount,
+                    'status' => 'pending',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                // return response()->json($user);
+                return["result"=>"exam submission success"];
+            }
+            catch(Error){
+
+                    return["result"=>"exam submission failed"];
+            }
+
+
+
+
+
+
     }
 
 
