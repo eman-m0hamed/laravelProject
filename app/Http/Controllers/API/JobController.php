@@ -87,11 +87,12 @@ class JobController extends Controller
                 if($answer){
                     $answerCount++;
                 }
-
-                if($question['right_option']??null==$answer){
+                if(isset($question['right_option']) && isset($answer) && $question['right_option'] == $answer){
                     $rightAnswerCount ++;
                 }
 
+                // dd($question['right_option']);
+                // dd($answer);
             }
 
 
