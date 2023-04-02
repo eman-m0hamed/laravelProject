@@ -131,6 +131,12 @@ class JobQuestionController extends Controller
 
     }
 
+    public function showQuestion($id){
+        $jobQuestion=JobQuestion::find($id);
+        return response()->json($jobQuestion);
+
+    }
+
 
 
 }
