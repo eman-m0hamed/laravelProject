@@ -23,9 +23,9 @@ class User extends Authenticatable
         'password',
         'userName',
         'phone',
-        'address',
-        'city',
-        'state',
+            'address',
+                'city',
+                    'state'
     ];
 
     /**
@@ -46,10 +46,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function jobs()
-    {
-        return $this->belongsToMany(Job::class)
-        ->withPivot('answer_count', 'rightAnswer_count', 'status')
-        ->withTimestamps();
-    }
 }

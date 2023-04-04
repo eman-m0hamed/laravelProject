@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\JsonResponse;
 
-class AdminController extends BaseController
+class RegisterController extends BaseController
 {
     /**
      * Register api
@@ -22,7 +22,11 @@ class AdminController extends BaseController
             'name' => 'required|min:2',
             'email' => 'required|email',
             'password' => 'required|min:5',
-
+            'userName'=>'required|min:2',
+            	'phone'=>'required|min:10',
+                	'address'=>'required',
+                    	'city'=>'required',
+                        	'state'=>'required'
         ]);
 
         if($validator->fails()){
@@ -31,7 +35,7 @@ class AdminController extends BaseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $user = Admin::create($input);
+        $user = User::create($input);
         $success['token'] =  $user->createToken('MyApp')->plainTextToken;
         $success['name'] =  $user->name;
 
