@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\User;
+use Error;
 use Illuminate\Http\Request;
+
 
 class JobController extends Controller
 {
@@ -13,7 +15,9 @@ class JobController extends Controller
      */
     public function index()
     {
-       
+        $allJobs = Job::all();
+        return $allJobs;
+
     }
 
     /**
@@ -63,4 +67,60 @@ class JobController extends Controller
     {
         //
     }
+
+    public function addResults(Request $request){
+        // $jobUser= new Job();
+        $arr=json_decode($request->getContent(),true);
+        $jobId=$arr['jobId'];
+        $userId=$arr['userId'];
+        $userAnswers=$arr['userAnswers'];
+        $answerCount=0;
+        $rightAnswerCount=0;
+        // dd($userAnswers);
+            foreach ($userAnswers as $arrQuestion => $answer) {
+                $jobQuestions=Job:: with('question') ->get()->where('id',$jobId)->first();
+                $questions=$jobQuestions->question;
+                // dd($questions);
+                $question = collect($questions)->where('question', $arrQuestion)->first();
+                // dd($question['right_option']);
+                // dd($answer);
+                if($answer){
+                    $answerCount++;
+                }
+                if(isset($question['right_option']) && isset($answer) && $question['right_option'] == $answer){
+                    $rightAnswerCount ++;
+                }
+
+                // dd($question['right_option']);
+                // dd($answer);
+            }
+
+
+
+            try{
+                $user = User::find($userId);
+                $job = Job::find($jobId);
+               $result= $job->users()->attach($user->id, [
+                    'answer_count' => $answerCount,
+                    'rightAnswer_count' => $rightAnswerCount,
+                    'status' => 'pending',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                // return response()->json($user);
+                return["result"=>"exam submission success"];
+            }
+            catch(Error){
+
+                    return["result"=>"exam submission failed"];
+            }
+
+
+
+
+
+
+    }
+
+
 }
